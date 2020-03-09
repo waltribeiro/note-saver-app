@@ -30,10 +30,6 @@ app.use(express.static('public'));
 
 // HTML Routes
 // ===========================================================
-app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "public/index.html"));
-  // res.end("welcome to my Note taking app!")
-});
 
 app.get("/notes", function(req, res) {
   res.sendFile(path.join(__dirname, "public/notes.html"));
@@ -42,69 +38,76 @@ app.get("/notes", function(req, res) {
 });
 
 // app.get("*", function(req, res) {
-//   res.sendFile(path.join(__dirname), "public/index.html");
-// });
-
-// API Routes
-app.get("/api/notes", function(req, res) {
-  res.json(db);
-});
-
-app.get("/api/notes/:id", function(req, res) {
+  //   res.sendFile(path.join(__dirname), "public/index.html");
+  // });
+  
+  // API Routes
+  app.get("/api/notes", function(req, res) {
+    res.json(db);
+  });
+  
+  app.get("/api/notes/:id", function(req, res) {
     var chosen = req.params.note;
-});
-
-app.post("/api/notes", function (req, res) {
-  var newdb = req.body;
-  // console.log(db);
-  db.push(newdb);
-  req.body.id = db.length;
-  let storeDb = JSON.stringify(db);
-  fs.writeFile(("./db/db.json"), storeDb, function (err, data) {
-    if (err) throw err;
-  })
-});
-
-
-// delete new note:
-app.delete("/api/notes/:id", function (req, res) {
-  var chosen = parseInt(req.params.id);
-  //console.log(chosen);
-  for (var i = 0; i < db.length; i++) {
-    if (chosen === db[i].id) {
-      db.splice(i, 1);
+  });
+  
+  app.post("/api/notes", function (req, res) {
+    var newdb = req.body;
+    // console.log(db);
+    db.push(newdb);
+    req.body.id = db.length;
+    let storeDb = JSON.stringify(db);
+    fs.writeFile(("./db/db.json"), storeDb, function (err, data) {
+      if (err) throw err;
+    })
+  });
+  
+  
+  // delete new note:
+  app.delete("/api/notes/:id", function (req, res) {
+    var chosen = parseInt(req.params.id);
+    //console.log(chosen);
+    for (var i = 0; i < db.length; i++) {
+      if (chosen === db[i].id) {
+        db.splice(i, 1);
+      }
+      for (let i = 0; i < db.length; i++) {
+        db[i].id = 1 + i;
+        
+      }
     }
-    for (let i = 0; i < db.length; i++) {
-      db[i].id = 1 + i;
-
-    }
-  }
-});
-// ERROR HERE - ON LINE 87
-fs.writeFile(".db/db.json", JSON.stringify(db), "utf8", function (err) {
-  fs.writeFile((".db/db.json"), JSON.stringify(db), function (err) {
+  });
+  // ERROR HERE - ON LINE 87
+  fs.writeFile("db/db.json", JSON.stringify(db), function (err) {
+    
     if (err) {
       throw err; // i'm getting an error on this line
-    } return res.json(false);
+    }
+    
+    // return res.json(false);
   });
-});
-
-// going to need 5 routes total
-// going to need a delete route
-// going to need a post route
-// going to need a req.body
-// going to need a "req . params id"
-
-// great resource = https://expressjs.com/en/starter/basic-routing.html
-
-// API Routes
-// Listener
-// ===========================================================
-app.listen(PORT, function() {
-  console.log("App listening on PORT " + PORT);
-});
-
-app.post('api/notes', function (req, res) {
-  var newNote = req.body;
-  res.json(newNote);
-});
+  
+  // going to need 5 routes total
+  // going to need a delete route
+  // going to need a post route
+  // going to need a req.body
+  // going to need a "req . params id"
+  
+  // great resource = https://expressjs.com/en/starter/basic-routing.html
+  
+  // API Routes
+  app.post('api/notes', function (req, res) {
+    var newNote = req.body;
+    res.json(newNote);
+  });
+  
+  app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "public/index.html"));
+    // res.end("welcome to my Note taking app!")
+  });
+  // Listener
+  // ===========================================================
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
+  
+  
