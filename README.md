@@ -1,4 +1,4 @@
-# employee-generator
+# Heroku Note Saver App
 
 Application that allows users to:
 - create and save notes
@@ -15,10 +15,6 @@ Application that allows users to:
 
 ## Contact
 My email is w@waltrib.com
-
-## Video Demonstration
-
-[Watch](https://waltribeiro.github.io/node-employee/)
 
 ## Screenshot
 
