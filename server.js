@@ -56,9 +56,13 @@ app.get("/notes", function(req, res) {
     db.push(newdb);
     req.body.id = db.length;
     let storeDb = JSON.stringify(db);
+    console.log("storeDb")
+    console.log(storeDb)
     fs.writeFile(("./db/db.json"), storeDb, function (err, data) {
       if (err) throw err;
     })
+
+    return res.json(db);
   });
   
   
@@ -77,14 +81,14 @@ app.get("/notes", function(req, res) {
     }
   });
   // ERROR HERE - ON LINE 87
-  fs.writeFile("db/db.json", JSON.stringify(db), function (err) {
+  // fs.writeFile("./db/db.json", JSON.stringify(db), function (err) {
     
-    if (err) {
-      throw err; // i'm getting an error on this line
-    }
+  //   if (err) {
+  //     throw err; // i'm getting an error on this line
+  //   }
     
-    // return res.json(false);
-  });
+  //   // return res.json(false);
+  // });
   
   // going to need 5 routes total
   // going to need a delete route
