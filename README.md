@@ -19,4 +19,4 @@ My email is w@waltrib.com
 
 ## Screenshot
 
-<img src="img/screenshot.gif" width="70%">
+<img src="img/screenshot.png" width="70%">
